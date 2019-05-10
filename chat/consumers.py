@@ -43,8 +43,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             username = self.username
 
         if message[0] == '/':
-            command = message.split(' ')[0]
-            parameter = message.split(' ')[1]
+            command = message.split('=')[0]
+            parameter = message.split('=')[1]
             execute.s(command, parameter, self.room_group_name).apply_async(serializer="pickle")
         currentDT = datetime.datetime.now()
         datetime = currentDT.strftime("%Y-%m-%d %H:%M:%S")
