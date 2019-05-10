@@ -1,6 +1,7 @@
 
 .vscode/
 venv/
+.idea/
 # Created by https://www.gitignore.io
 
 ### OSX ###
