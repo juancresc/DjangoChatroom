@@ -26,6 +26,9 @@ python manage.py migrate
 #create users
 python manage.py createsuperusers
 
-#starts celery
+#start dev server
+python manage.py runserver
+
+#starts celery (use a different console)
 celery -A challenge worker -l info
 ```
