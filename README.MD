@@ -1,4 +1,6 @@
-This app was built and executed under Ubuntu 18.04
+This app was built under Ubuntu 18.04 and tested under Ubuntu and macOS.
+
+
 
 It makes use of channels library to implement a multi-room chat with websockets. 
 It also uses celery and redis to implement a bot that can check for stock prices.
@@ -23,6 +25,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 #initialize db
+python manage.py makemigrations
 python manage.py migrate
 
 #create users

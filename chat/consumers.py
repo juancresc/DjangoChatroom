@@ -1,5 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
+from chat.models import Message
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
 
@@ -7,6 +9,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         if "user" in self.scope:
             self.username = self.scope["user"].username
+            self.user = self.scope["user"]
         else:
             self.username = "nobody"
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -19,6 +22,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
+        import datetime
+
+        currentDT = datetime.datetime.now()
+        datetime = currentDT.strftime("%Y-%m-%d %H:%M:%S")
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type': 'chat_message',
+                'message': "%s has joined %s" % (self.username, self.room_name,),
+                'username': "BOT",
+                'datetime': datetime
+            }
+        )
 
     async def disconnect(self, close_code):
         # Leave room group
@@ -49,6 +65,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         currentDT = datetime.datetime.now()
         datetime = currentDT.strftime("%Y-%m-%d %H:%M:%S")
         # Send message to room group
+        msg = Message()
+        msg.message = message
+        if not "from_bot" in text_data_json:
+            msg.user = self.user
+        msg.username = self.username
+        msg.room_name = self.room_name
+        msg.room_group_name = self.room_group_name
+        msg.save()
         await self.channel_layer.group_send(
             self.room_group_name,
             {

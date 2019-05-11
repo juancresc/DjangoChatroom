@@ -2,7 +2,8 @@
 {% block title %}Chat room{% endblock %}
 {% block content %}
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+    <textarea id="chat-log" cols="100" rows="20">{% for msg in msgs %}{{ msg.date_sent|date:'Y-m-d H:i:s' }} {{ msg.username }}:{{ msg.message }}
+{% endfor %}</textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
@@ -18,7 +19,7 @@
         var message = data['message'];
         var username = data['username'];
         var datetime = data['datetime'];
-        document.querySelector('#chat-log').value += (datetime + ' ' + username + ':' + message + '\n');
+        document.querySelector('#chat-log').value += (datetime + ' ' + username + ': ' + message + '\n');
     };
 
     chatSocket.onclose = function(e) {
