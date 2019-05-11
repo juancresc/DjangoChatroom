@@ -1,4 +1,7 @@
-## Django chatroom with BOT
+## Django websocket chatroom with BOT
+
+[register,login,chatroom,chatbot] using [websockets,channels,celery]
+
 This app was built under Ubuntu 18.04 and tested under Ubuntu and macOS.
 
 
