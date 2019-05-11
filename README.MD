@@ -8,6 +8,8 @@ It also uses celery and redis to implement a bot that can check for stock prices
 sudo apt-get install chromium-chromedriver
 sudo apt-get install redis-server
 
+#also virtualenv https://gist.github.com/frfahim/73c0fad6350332cef7a653bcd762f08d
+
 #start redis server
 sudo redis-server --port 6379
 
@@ -24,7 +26,7 @@ pip install -r requirements.txt
 python manage.py migrate
 
 #create users
-python manage.py createsuperusers
+python manage.py createsuperuser
 
 #start dev server
 python manage.py runserver
