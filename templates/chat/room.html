@@ -19,7 +19,10 @@
         var message = data['message'];
         var username = data['username'];
         var datetime = data['datetime'];
-        document.querySelector('#chat-log').value += (datetime + ' ' + username + ': ' + message + '\n');
+        var textarea = document.querySelector('#chat-log');
+        textarea.value += (datetime + ' ' + username + ': ' + message + '\n');
+        textarea.scrollTop = textarea.scrollHeight;
+
     };
 
     chatSocket.onclose = function(e) {
@@ -42,6 +45,8 @@
 
         messageInputDom.value = '';
     };
+    var textarea = document.querySelector('#chat-log');
+    textarea.scrollTop = textarea.scrollHeight;
 </script>
 </html>
 

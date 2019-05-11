@@ -58,7 +58,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         else:
             username = self.username
 
-        if message[0] == '/':
+        if message[0] == '/' and '=' in message:
             command = message.split('=')[0]
             parameter = message.split('=')[1]
             execute.s(command, parameter, self.room_group_name).apply_async(serializer="pickle")
