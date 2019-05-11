@@ -10,16 +10,10 @@ import asyncio
 @shared_task
 def execute(command, parameter, room_group_name):
     if command == '/stock':
-        try:
-            loop = asyncio.bew_event_loop()
-        except Exception as e:
-            loop = asyncio.get_event_loop()
+        loop = asyncio.get_event_loop()
         loop.run_until_complete(sendData(stock(parameter), "BOT", room_group_name))
         return True
-    try:
-        loop = asyncio.bew_event_loop()
-    except Exception as e:
-        loop = asyncio.get_event_loop()
+    loop = asyncio.get_event_loop()
     loop.run_until_complete(sendData("I do not understand that parameter", "BOT", room_group_name))
     return True
 
@@ -36,7 +30,7 @@ async def sendData(message, from_, room_group_name):
         {
             'type': 'chat_message',
             'username': from_,
-            'datetime': datetime ,
+            'datetime': datetime,
             'message': message
         }
     )
@@ -50,6 +44,8 @@ def stock(stock_code):
             decoded_content = download.content.decode('utf-8')
         except UnicodeDecodeError:
             return "Error while parsing response"
+        except Exception:
+            return "Error while parsing response 2"
         cr = csv.reader(decoded_content.splitlines(), delimiter=',')
         my_list = list(cr)
         print(my_list)
