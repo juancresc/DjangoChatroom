@@ -2,7 +2,7 @@
 
 [register,login,chatroom,chatbot] using [websockets,channels,celery]
 
-This app was built under Ubuntu 18.04 and tested under Ubuntu and macOS.
+This app was built under Ubuntu 18.04. macOS won't run celery (https://github.com/celery/celery/issues/1115)
 
 
 
